@@ -1,0 +1,19 @@
+<?php
+    function comment_buddy_menu() {
+        $items = array();
+        $items['comment_buddy'] = array(
+            'title' => 'Comment Buddy',
+            'page callback' => 'comment_buddy',
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+        return $items;
+    }
+
+    function comment_buddy_comment_publish() {
+        drupal_set_message('Super Working!');
+    }
+    // 
+    // function comment_buddy_comment_publish() {
+    //     $_GET['destination'] = 'comment_buddy';
+    // }
