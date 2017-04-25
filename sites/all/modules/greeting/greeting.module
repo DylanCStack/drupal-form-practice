@@ -27,13 +27,19 @@
         }
     }
 
+    // function say_farewell() {
+    //     return '<p>See you later, ' . $_COOKIE["Drupal_visitor_0"] . '!</p>';
+    // }
+
+    //'admin' REFERS TO USER, NOT ROLE. WE ARE MID-ATTEMPT AT TARGETING THE ROLE, NOT THE USERNAME. 
     function say_farewell() {
-        return '<p>See you later, ' . $_COOKIE["Drupal_visitor_0"] . '!</p>';
+        if ($_COOKIE["Drupal_visitor_0"] == 'admin') {
+            return '<p>Bye bye bye!</p>';
+        } else {
+            return "<p>Backstreet's Back!</p>";
+        }
     }
 
-    // function admin_farewell() {
-    //     return '<p>Bye bye bye!</p>';
-    // }
 
     function greeting_user_login() {
         $_GET['destination'] = 'hello_friend';
