@@ -1,0 +1,58 @@
+<?php
+
+    function title_case_menu() {
+        $items['title_case'] = array(
+            'title' => 'Title Case',
+            'access callback' => TRUE,
+            'page callback' => 'drupal_get_form',
+            'type' => MENU_NORMAL_ITEM,
+            'page arguments' => array('title_case_form'),
+        );
+        $items['case_success'] = array(
+            'title' => 'Success',
+            'access callback' => TRUE,
+            'page callback' => 'case_success',
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+
+    function title_case_form(){
+        $form['input'] = [
+            '#title' => t('Titleify:'),
+            '#type' => 'textfield',
+            '#description' => t('Enter some text you would like to see CAPITALIZED'),
+        ];
+
+        $form['submit'] = [
+            '#type' => 'submit',
+            '#value' => 'Format',
+        ];
+        return $form;
+    }
+
+    function title_case_form_submit($form, &$form_state){
+        $user_input = $form_state['values']['input'];
+        $exploded_input = explode(' ', $user_input);
+        strtoupper($exploded_input[0][0]);
+        $array_length = sizeof($exploded_input);
+        for ($i=0; $i < $array_length; $i++) {
+            $exploded_input[$i][0] = strtoupper($exploded_input[$i][0]);
+        }
+        $imploded_input = implode(' ', $exploded_input);
+        $_SESSION['user_input'] = $imploded_input;
+        // $_SESSION['$form'] = $form;
+        // $_SESSION['$form_state'] = $form_state;
+        $form_state['redirect'] = 'case_success';
+
+    }
+
+    function case_success() {
+        // var_dump('$form: ', $_SESSION['$form']);
+        // var_dump('$form_state: ', $_SESSION['$form_state']);
+        // var_dump($_SESSION['user_input']);
+        var_dump($_SESSION['user_input']);
+        $user_input = $_SESSION['user_input'];
+        return 'Here\'s your text: <br>'.$user_input.'<br> enjoy or whatever';
+    }
