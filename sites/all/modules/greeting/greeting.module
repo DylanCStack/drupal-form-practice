@@ -19,10 +19,11 @@
 
     function say_hello(){
         $user_level = $GLOBALS['user']->roles;
-        user_cookie_save(array($GLOBALS['user']->name));
         if(isset($user_level[3])) {
+            user_cookie_save(array($user_level[3]));
             return '<p>Welcome to the Admin view!</p>';
         } elseif (isset($user_level[2])) {
+            user_cookie_save(array($user_level[2]));
             return '<p>Nice to see you!</p>';
         }
     }
@@ -31,12 +32,13 @@
     //     return '<p>See you later, ' . $_COOKIE["Drupal_visitor_0"] . '!</p>';
     // }
 
-    //'admin' REFERS TO USER, NOT ROLE. WE ARE MID-ATTEMPT AT TARGETING THE ROLE, NOT THE USERNAME. 
+    //'admin' REFERS TO USER, NOT ROLE. WE ARE MID-ATTEMPT AT TARGETING THE ROLE, NOT THE USERNAME.
     function say_farewell() {
-        if ($_COOKIE["Drupal_visitor_0"] == 'admin') {
-            return '<p>Bye bye bye!</p>';
-        } else {
-            return "<p>Backstreet's Back!</p>";
+        var_dump($_COOKIE["Drupal_visitor_0"]);
+        if ($_COOKIE["Drupal_visitor_0"] == 'administrator') {
+            return '<p>Bye bye bye Admin!</p>';
+        } elseif ($_COOKIE["Drupal_visitor_0"] == 'authenticated user') {
+            return "<p>See ya later AuthUser!</p>";
         }
     }
 
